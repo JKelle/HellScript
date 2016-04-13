@@ -1,0 +1,5 @@
+base 3 arithmetic
+variables have to start with t
+no addition
+max length = 5
+no vowels
