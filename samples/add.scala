@@ -1,5 +1,5 @@
 
-object HelloWorld extends HellScript{
+object Add extends HellScript {
     def main(args: Array[String]): Unit = {
 
         var x:int = 5
