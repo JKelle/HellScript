@@ -1,5 +1,5 @@
 
-object HelloWorld extends HellScript{
+object Func extends HellScript {
 
 	def factorial(n:int):int {
 		if(n == 1) {
