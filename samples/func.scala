@@ -11,5 +11,5 @@ def area(w:int, h:width) {
 	return a
 }
 
-print(factorial(4))
-print(area(20,3))
+print(factorial(5))
+print(area(21,3))

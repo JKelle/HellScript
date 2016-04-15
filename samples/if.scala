@@ -3,11 +3,11 @@ var x:int = 1
 var y:int = 5
 
 if (x > y) {
-	print "x"
+	print("x")
 }
 else if (y > x) {
-	print "y"
+	print("y")
 }
 else {
-	print "xy"
+	print("xy")
 }
