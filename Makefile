@@ -5,4 +5,5 @@ run:
 	scala -classpath bin/ HelloWorld
 
 clean:
-	rm bin/*
+	rm -f bin/*
+	rm -f src/*.class
