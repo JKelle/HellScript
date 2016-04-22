@@ -25,11 +25,15 @@ class HellScript {
         }
     } 
 
-    def Def(funcname: Symbol)(body : => Unit) {
+/*    def Def(funcname: Symbol)(body : => Unit) {
+        funcs += funcname -> body;
+    }*/
+
+    def Def(funcname: Symbol)(arg1:Any)(body : => Unit) {
         funcs += funcname -> body;
     }
 
-    def set(sym:Symbol, value:Any) {
+    def Set(sym:Symbol, value:Any) {
         // To use when we're ready to make things hell-ish
 //        if (sym.name.charAt(0) != 't')        
 //          throw new Exception("You fool! Variables must begin with 't'");
@@ -40,13 +44,13 @@ class HellScript {
         }
     }
     
-    def getInt(sym:Symbol) : Int = {
+    def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
 	          ints(sym)
 	      0
     }
     
-    def getString(sym:Symbol) : String = {
+    def GetString(sym:Symbol) : String = {
         if(strings contains sym)
 	          strings(sym)
 	      ""
@@ -58,29 +62,15 @@ class HellScript {
             funcs(sym)
         }
         else if( ints contains sym) {
+            ints(sym);
             //do something
         }
         else if( strings contains sym ) {
+            strings(sym);
             //do something
         }
     }
     implicit def sym(symbol:Symbol) = startswithsym(symbol)
     
-//    abstract sealed class HellScriptClass
-//    case class setVar(sym:Symbol) extends HellScriptClass{
-//        object PRINT {
-//            def apply(str:String) = set(sym, str);
-//            def apply(v:Int) = set(sym,v);
-//        }
-//        
-//        def set(sym:Symbol, v:Int) {
-//            ints += sym -> v
-//        }
-//        
-//        def set(sym:Symbol, v:String) {
-//            strings += sym -> v
-//        }
-//    }
-//    implicit def setVars(sym:Symbol) = setVar(sym)
     
 }
