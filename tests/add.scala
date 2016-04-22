@@ -1,12 +1,12 @@
 
 object Add extends HellScript{
     def main(args: Array[String]): Unit = {
-        set('x, 5)
-        print('x)
-        set('x, (getInt('x) + 1))
-        print('x)
-        set('y, "hello")
-        print('y)
+        Set('x, 5)
+        Println('x)
+        Set('x, (GetInt('x) + 1))
+        Println('x)
+        Set('y, "a string")
+        Println('y)
         
         // Original syntax:
 //        var x:Int = 5

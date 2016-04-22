@@ -2,17 +2,33 @@ class HellScript {
     
     var ints:Map[Symbol,Int] = Map()
     var strings:Map[Symbol, String] = Map()
+    var condition:Boolean = false;
     var funcs:Map[Symbol, Unit] = Map()
     
     def Print(value:Int) {
-        println(value)
+        print(value)
     }
     
     def Print(str:String) {
-        println(str);
+        print(str);
     }
 
     def Print(sym:Symbol) {
+        if(strings contains sym)
+            print(strings(sym));
+        else if(ints contains sym)
+            print(ints(sym))
+    }
+    
+    def Println(value:Int) {
+        println(value)
+    }
+    
+    def Println(str:String) {
+        println(str);
+    }
+
+    def Println(sym:Symbol) {
         if(strings contains sym)
             println(strings(sym));
         else if(ints contains sym)
@@ -22,14 +38,25 @@ class HellScript {
     def If(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
+            condition = true
         }
-    } 
+    }
+    
+    def Elseif(pred:Boolean)(body: => Unit) {
+        if (pred & !condition) {
+            body
+            condition = true
+        }
+    }
+    
+    def Else(body: => Unit) {
+        if (!condition)
+          body
+        
+        condition = false
+    }
 
-/*    def Def(funcname: Symbol)(body : => Unit) {
-        funcs += funcname -> body;
-    }*/
-
-    def Def(funcname: Symbol)(arg1:Any)(body : => Unit) {
+    def Def(funcname: Symbol)(arg1:Any)(body : => Unit) {    
         funcs += funcname -> body;
     }
 
@@ -46,14 +73,14 @@ class HellScript {
     
     def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
-	          ints(sym)
-	      0
+	          return ints(sym)
+	      return 0
     }
     
     def GetString(sym:Symbol) : String = {
         if(strings contains sym)
-	          strings(sym)
-	      ""
+	          return strings(sym)
+	      return ""
     }
     
     abstract sealed class HellScriptClass
