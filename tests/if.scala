@@ -1,17 +1,17 @@
 object If extends HellScript {
     def main(args: Array[String]): Unit = {
 
-        set('x, 1)
-        set('y, 5)
+        Set('x, 1)
+        Set('y, 5)
         
-        if (getInt('x) > getInt('y)) {
-            print("x")
+        If(GetInt('x) > GetInt('y)) {
+            Print("x")
         }
-        else if (getInt('y) > getInt('x)) {
-            print("y")
+        Elseif (GetInt('y) > GetInt('x)) {
+            Print("y")
         }
-        else {
-            print("xy")
+        Else {
+            Print("z")
         }
         
         // Original syntax:
