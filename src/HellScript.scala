@@ -2,6 +2,7 @@ class HellScript {
     
     var ints:Map[Symbol,Int] = Map()
     var strings:Map[Symbol, String] = Map()
+    var funcs:Map[Symbol, Unit] = Map()
     
     def Print(value:Int) {
         println(value)
@@ -23,6 +24,10 @@ class HellScript {
             body
         }
     } 
+
+    def Def(funcname: Symbol)(body : => Unit) {
+        funcs += funcname -> body;
+    }
 
     def set(sym:Symbol, value:Any) {
         // To use when we're ready to make things hell-ish
@@ -47,6 +52,19 @@ class HellScript {
 	      ""
     }
     
+    abstract sealed class HellScriptClass
+    case class startswithsym(sym:Symbol) extends HellScriptClass {
+        if( funcs contains sym) {
+            funcs(sym)
+        }
+        else if( ints contains sym) {
+            //do something
+        }
+        else if( strings contains sym ) {
+            //do something
+        }
+    }
+    implicit def sym(symbol:Symbol) = startswithsym(symbol)
     
 //    abstract sealed class HellScriptClass
 //    case class setVar(sym:Symbol) extends HellScriptClass{

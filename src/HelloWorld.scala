@@ -7,5 +7,12 @@ object HelloWorld extends HellScript{
     			Print("asdf2")
     		}
     	}
+
+    	Def ('printhi) {
+    		Print("Hi")
+    	}
+
+    	'printhi
+
     }
 }
