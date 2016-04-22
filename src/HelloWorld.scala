@@ -1,22 +1,25 @@
 object HelloWorld extends HellScript{
     def main(args: Array[String]): Unit = {
-    	Print("helloworld");
-    	Set('x, 4)
-    	Set('y, 6)
 
-    	If(GetInt('x) < GetInt('y)) { 
-    		Print("asdf")
-    		If(5>3){
-    			Print("asdf2")
-    		}
-    	}
+      Println("helloworld")
 
-    	Def ('printhi) ('x) {
-    		Print('x)
-    		Print("HI")
-    	}
+      If(((1 or 0) and 5) or not(true)) {
+        'x := 20 * 5 + 5 * 12
+        't := 'x + 5
+        'y := "bees"
+        Println('x)
+        Println('t)
+        Println('y)
+      }
 
-    	'printhi 
+      //need some way to convert expressions into anon functions
+      // need to clarify syntax for functions
+    	Def ('printhi)() {
+        () => Println("HI")
+      }
+
+    	'printhi ()
+      'printhi ()
 
     }
 }
