@@ -28,7 +28,8 @@ object HelloWorld extends HellScript{
     	Println("HI")
     } 
 
-    'printhi
+    'printhi()
+    'printhi(23)
     //this.printhi()
     //'printhi (59)
 

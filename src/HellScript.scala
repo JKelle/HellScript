@@ -151,14 +151,18 @@ class HellScript {
 	      else ""
     }
     
-    def temp(sym:Symbol) {
-        println(sym)
-        println(funcs contains sym)
+    def exec(sym:Symbol) {
         funcs(sym).call
     }
     
+    def exec(sym:Symbol, arg:Int) {
+        Println(arg)
+        funcs(sym).call
+    }
     case class startswithsym(sym:Symbol){
-        def apply() = temp(sym)
+        def apply() = exec(sym)
+        def apply(arg:Int) = exec(sym, arg)
+        def apply(arg:Any, arg2:Any) = exec(sym)
 
 
         /*if( funcs contains sym) {
@@ -173,6 +177,6 @@ class HellScript {
             ints(sym);
           }*/
     }
-    implicit def funccall(name:Symbol) = temp(name)
+    implicit def funccall(name:Symbol) = startswithsym(name)
     
 }
