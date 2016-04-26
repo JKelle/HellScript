@@ -14,4 +14,3 @@ echo "~running Func~"
 scala Func
 rm *.class
 rm HellScript.scala
-
