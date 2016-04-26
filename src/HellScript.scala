@@ -6,30 +6,29 @@ class HellScript {
     var condition:Boolean = false
     var funcs:Map[Symbol, () => Unit] = Map()
 
-  case class Assign(v: Symbol){
-      def :=(value:Int)= Set(v,value)
-      def :=(value:String)= Set(v,value)
-  }
-  case class LogicOp(lhs: Boolean){
-      def or(rhs:Boolean)= lhs || rhs
-      def and(rhs:Boolean)= lhs && rhs
-  }
-
-
-
-  def not(value: Boolean): Boolean = {
-    !value
-  }
-
-  implicit def inttobool(i: Int):Boolean = if(i==0) false else true
-  //implicit def vartostr(s:Symbol) = GetString(s)
-  implicit def vartoint(s:Symbol) = GetInt(s)
-  implicit def varname(sym: Symbol) = Assign(sym)
-  implicit def logic(b:Boolean) = LogicOp(b)
-  implicit def logic(i:Int) = LogicOp(i)
-
-
-  def Print(value:Int) {
+    case class Assign(v: Symbol){
+        def :=(value:Int)= Set(v,value)
+        def :=(value:String)= Set(v,value)
+    }
+    case class LogicOp(lhs: Boolean){
+        def or(rhs:Boolean)= lhs || rhs
+        def and(rhs:Boolean)= lhs && rhs
+    }
+  
+  
+  
+    def not(value: Boolean): Boolean = {
+      !value
+    }
+  
+    implicit def inttobool(i: Int):Boolean = if(i==0) false else true
+    //implicit def vartostr(s:Symbol) = GetString(s)
+    implicit def vartoint(s:Symbol) = GetInt(s)
+    implicit def varname(sym: Symbol) = Assign(sym)
+    implicit def logic(b:Boolean) = LogicOp(b)
+    implicit def logic(i:Int) = LogicOp(i)
+    
+    def Print(value:Int) {
         print(value)
     }
     
@@ -59,21 +58,25 @@ class HellScript {
             println(ints(sym))
     }
     
-    def run(body: => Unit) {
-        body
+    def run(body: => Unit) {		
+        body		
     }
-
+    
     def If(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
             condition = true
+        } else {
+            condition = false
         }
     }
     
-    def Elseif(pred:Boolean)(body: => Unit) {
+    def ElseIf(pred:Boolean)(body: => Unit) {
         if (pred & !condition) {
             body
             condition = true
+        } else {
+            condition = false
         }
     }
     
@@ -83,12 +86,12 @@ class HellScript {
         
         condition = false
     }
+    
 
 /*    def Def(funcname: Symbol)(body : => Unit) {  
         funcs += funcname -> body;
         println("in def") 
         println(body) 
-
     }*/
 
 /*    //Define a function with no parameter
@@ -115,16 +118,16 @@ class HellScript {
     
     def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
-	           ints(sym)
-         else 0
+	          ints(sym)
+	      else 0
     }
     
     def GetString(sym:Symbol) : String = {
         if(strings contains sym)
 	          strings(sym)
-        else ""
+	      else ""
     }
-
+    
     def temp(sym:Symbol) {
         println(sym)
         println(funcs contains sym)
@@ -145,10 +148,8 @@ class HellScript {
         }
         else if( ints contains sym) {
             ints(sym);
-
           }*/
     }
     implicit def funccall(symbol:Symbol) = funcs(symbol)
-    
     
 }
