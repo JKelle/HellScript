@@ -7,16 +7,16 @@ object Func extends HellScript {
   		}
   		return n*factorial(n-1)
   	}
-  
+
   	def area(w:Int, h:Int) : Int = {
-  		Set('a, w*h)
-  		return GetInt('a)
+  		'a := w*h
+  		return 'a
   	}
 
     def main(args: Array[String]): Unit = {
-    
+
     		Println(factorial(5))
     		Println(area(21,3))
-    
+
     }
 }
