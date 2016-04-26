@@ -91,8 +91,15 @@ class HellScript {
 
     }*/
 
+/*    //Define a function with no parameter
+    def Def(funcname: Symbol)(body : () => Unit) {
+        funcs += funcname -> body
+    } */
+
+    //Define a function with one parameter
     def Def(funcname: Symbol)(arg1:Any)(body : () => Unit) {
         funcs += funcname -> body
+        println(arg1)
     } 
 
     def Set(sym:Symbol, value:Any) {
