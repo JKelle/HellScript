@@ -1,8 +1,9 @@
+import scala.language.implicitConversions
 class HellScript {
     
     var ints:Map[Symbol,Int] = Map()
     var strings:Map[Symbol, String] = Map()
-    var condition:Boolean = false;
+    var condition:Boolean = false
     var funcs:Map[Symbol, () => Unit] = Map()
 
     case class Assign(v: Symbol){
@@ -32,12 +33,12 @@ class HellScript {
     }
     
     def Print(str:String) {
-        print(str);
+        print(str)
     }
 
     def Print(sym:Symbol) {
         if(strings contains sym)
-            print(strings(sym));
+            print(strings(sym))
         else if(ints contains sym)
             print(ints(sym))
     }
@@ -47,14 +48,18 @@ class HellScript {
     }
     
     def Println(str:String) {
-        println(str);
+        println(str)
     }
 
     def Println(sym:Symbol) {
         if(strings contains sym)
-            println(strings(sym));
+            println(strings(sym))
         else if(ints contains sym)
             println(ints(sym))
+    }
+    
+    def run(body: => Unit) {		
+        body		
     }
     
     def If(pred:Boolean)(body: => Unit) {
@@ -106,14 +111,14 @@ class HellScript {
     
     def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
-	          return ints(sym)
-	      return 0
+	          ints(sym)
+	      else 0
     }
     
     def GetString(sym:Symbol) : String = {
         if(strings contains sym)
-	          return strings(sym)
-	      return ""
+	          strings(sym)
+	      else ""
     }
     
     def temp(sym:Symbol) {
