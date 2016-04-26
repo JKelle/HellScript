@@ -66,8 +66,6 @@ class HellScript {
         if (pred) {
             body
             condition = true
-        } else {
-            condition = false
         }
     }
     
@@ -75,8 +73,6 @@ class HellScript {
         if (pred & !condition) {
             body
             condition = true
-        } else {
-            condition = false
         }
     }
     
