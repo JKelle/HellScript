@@ -15,8 +15,6 @@ class HellScript {
         def and(rhs:Boolean)= lhs && rhs
     }
   
-  
-  
     def not(value: Boolean): Boolean = {
       !value
     }
@@ -58,10 +56,6 @@ class HellScript {
             println(ints(sym))
     }
     
-    def run(body: => Unit) {		
-        body		
-    }
-    
     def If(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
@@ -86,31 +80,14 @@ class HellScript {
         
         condition = false
     }
-    
-
-/*    def Def(funcname: Symbol)(body : => Unit) {  
-        funcs += funcname -> body;
-        println("in def") 
-        println(body) 
-    }*/
-
-/*    //Define a function with no parameter
-    def Def(funcname: Symbol)(body : () => Unit) {
-        funcs += funcname -> body
-    } */
-
-/*    //Define a function with one parameter
-    def Def(funcname: Symbol)(arg1:Any)(body: => Unit) = {
-        funcs += funcname -> new Function(body)
-    }*/
 
     //Define a function with one parameter
-    def Def(funcname: Symbol)(arg1:Any)(body: => Any) = {
+    def MyDef(funcname: Symbol)(arg1:Any)(body: => Any) = {
         //val body = new Function(Println("HI"))
         funcs += funcname -> new Function(body)
     }
 
-    object MyDef extends Dynamic {
+    object Def extends Dynamic {
         def applyDynamic(name: String)(arg: Symbol) = {
             //Def(Symbol(name))(arg)
             //Symbol(name) === 'printhi
@@ -118,7 +95,7 @@ class HellScript {
         }
         def selectDynamic(name: String) = new {
             def update(arg: Symbol, body: => Unit) = {
-                Def(Symbol(name))(arg)(body)
+                MyDef(Symbol(name))(arg)(body)
             }
         }
         //MyDef printhi ('x) ~~ MyDef.applyDynamic("printhi")('x)
@@ -155,13 +132,21 @@ class HellScript {
         funcs(sym).call
     }
     
-    def exec(sym:Symbol, arg:Int) {
-        Println(arg)
+    def exec(sym:Symbol, arg:Any) {
+
+        arg match {
+          case arg:Int => Println(arg)
+          case arg:String => Println(arg)
+        }
+
         funcs(sym).call
     }
+
     case class startswithsym(sym:Symbol){
         def apply() = exec(sym)
         def apply(arg:Int) = exec(sym, arg)
+        def apply(arg:String) = exec(sym, arg)
+        def apply(arg:Symbol) = exec(sym, arg)
         def apply(arg:Any, arg2:Any) = exec(sym)
 
 

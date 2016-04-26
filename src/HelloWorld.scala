@@ -24,7 +24,7 @@ object HelloWorld extends HellScript{
     	Println('x)
     }*/
 
-    MyDef printhi('x) = {
+    Def printhi('x) = {
     	Println("HI")
     } 
 
