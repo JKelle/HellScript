@@ -1,5 +1,5 @@
 all:
-	scalac -d bin src/HellScript.scala src/HelloWorld.scala
+	scalac -d bin -feature src/HellScript.scala src/HelloWorld.scala
 
 run:
 	scala -classpath bin/ HelloWorld

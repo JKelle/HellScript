@@ -1,3 +1,4 @@
+import scala.language.implicitConversions
 class HellScript {
     
     var ints:Map[Symbol,Int] = Map()
@@ -35,6 +36,10 @@ class HellScript {
             println(ints(sym))
     }
     
+    def run(body: => Unit) {
+        body
+    }
+
     def If(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
@@ -56,7 +61,11 @@ class HellScript {
         condition = false
     }
 
-    def Def(funcname: Symbol)(arg1:Any)(body : => Unit) {    
+    def Def(funcname: Symbol)(body : => Unit)(body2 : => Unit) {  
+        println("in def") 
+        println(body) 
+        println(body2) 
+
         funcs += funcname -> body;
     }
 
@@ -82,11 +91,24 @@ class HellScript {
 	          return strings(sym)
 	      return ""
     }
+
+    def temp(sym:Symbol) {
+        println(sym)
+        println(funcs contains sym)
+        println(funcs(sym));
+    }
     
-    abstract sealed class HellScriptClass
-    case class startswithsym(sym:Symbol) extends HellScriptClass {
-        if( funcs contains sym) {
+    case class startswithsym(sym:Symbol){
+        def apply() = temp(sym)
+
+
+        /*if( funcs contains sym) {
+           
+            //var temp = ints;
+            //ints += //get the param
             funcs(sym)
+            print("here")
+            //ints = temp
         }
         else if( ints contains sym) {
             ints(sym);
@@ -95,7 +117,7 @@ class HellScript {
         else if( strings contains sym ) {
             strings(sym);
             //do something
-        }
+        } */  
     }
     implicit def sym(symbol:Symbol) = startswithsym(symbol)
     
