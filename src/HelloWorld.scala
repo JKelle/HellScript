@@ -14,15 +14,22 @@ object HelloWorld extends HellScript{
 
       //need some way to convert expressions into anon functions
       // need to clarify syntax for functions
-    Def ('printhi)('x) {
-        () => {
-        	Println('x)
-        	Println("HI")
-    		Println("HI2")
-    	}
-      }
+/*    Def ('printhi)('x) {
+    	Println('x)
+    	Println("HI")
+		Println("HI2")
+      }*/
 
-    'printhi()
+/*    MyDef printhi ('x) =  {
+    	Println('x)
+    }*/
+
+    MyDef printhi('x) = {
+    	Println("HI")
+    } 
+
+    'printhi
+    //this.printhi()
     //'printhi (59)
 
     }

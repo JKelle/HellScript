@@ -4,7 +4,7 @@ class HellScript {
     var ints:Map[Symbol,Int] = Map()
     var strings:Map[Symbol, String] = Map()
     var condition:Boolean = false
-    var funcs:Map[Symbol, () => Unit] = Map()
+    var funcs:Map[Symbol, Function] = Map()
 
     case class Assign(v: Symbol){
         def :=(value:Int)= Set(v,value)
@@ -99,10 +99,33 @@ class HellScript {
         funcs += funcname -> body
     } */
 
+/*    //Define a function with one parameter
+    def Def(funcname: Symbol)(arg1:Any)(body: => Unit) = {
+        funcs += funcname -> new Function(body)
+    }*/
+
     //Define a function with one parameter
-    def Def(funcname: Symbol)(arg1:Any)(body : () => Unit) {
-        funcs += funcname -> body
-        println(arg1)
+    def Def(funcname: Symbol)(arg1:Any)(body: => Any) = {
+        //val body = new Function(Println("HI"))
+        funcs += funcname -> new Function(body)
+    }
+
+    object MyDef extends Dynamic {
+        def applyDynamic(name: String)(arg: Symbol) = {
+            //Def(Symbol(name))(arg)
+            //Symbol(name) === 'printhi
+            //println(s"Def $name($arg)")
+        }
+        def selectDynamic(name: String) = new {
+            def update(arg: Symbol, body: => Unit) = {
+                Def(Symbol(name))(arg)(body)
+            }
+        }
+        //MyDef printhi ('x) ~~ MyDef.applyDynamic("printhi")('x)
+    }
+
+    class Function(body: => Unit) {
+        def call = body
     } 
 
     def Set(sym:Symbol, value:Any) {
@@ -131,7 +154,7 @@ class HellScript {
     def temp(sym:Symbol) {
         println(sym)
         println(funcs contains sym)
-        println(funcs(sym));
+        funcs(sym).call
     }
     
     case class startswithsym(sym:Symbol){
@@ -150,6 +173,6 @@ class HellScript {
             ints(sym);
           }*/
     }
-    implicit def funccall(symbol:Symbol) = funcs(symbol)
+    implicit def funccall(name:Symbol) = temp(name)
     
 }
