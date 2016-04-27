@@ -25,9 +25,14 @@ object HelloWorld extends HellScript{
     }*/
 
     Def printhi('x) = {
-    	Println("HI")
-    } 
+    	Println('x)
+    }
 
+    Def whatsup() = {
+    	Println("not much")
+    }
+
+    'whatsup()
     'printhi()
     'printhi(23)
     //this.printhi()
