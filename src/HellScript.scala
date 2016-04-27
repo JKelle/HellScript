@@ -4,7 +4,7 @@ class HellScript {
     var ints:Map[Symbol,Int] = Map()
     var strings:Map[Symbol, String] = Map()
     var condition:Boolean = false
-    var funcs:Map[Symbol, Function] = Map()
+    var funcs:Map[Symbol, (Symbol, Function)] = Map()
 
     case class Assign(v: Symbol){
         def :=(value:Int)= Set(v,value)
@@ -81,10 +81,15 @@ class HellScript {
         condition = false
     }
 
+    //Define a function with zero parameters
+    def MyDef0(funcname: Symbol)(body: => Any) = {
+        funcs += funcname -> ('null, new Function(body))
+    }
+
     //Define a function with one parameter
-    def MyDef(funcname: Symbol)(arg1:Any)(body: => Any) = {
+    def MyDef1(funcname: Symbol)(arg1:Symbol)(body: => Any) = {
         //val body = new Function(Println("HI"))
-        funcs += funcname -> new Function(body)
+        funcs += funcname -> (arg1, new Function(body))
     }
 
     object Def extends Dynamic {
@@ -94,8 +99,11 @@ class HellScript {
             //println(s"Def $name($arg)")
         }
         def selectDynamic(name: String) = new {
+            def update(body: => Unit) = {
+                MyDef0(Symbol(name))(body)
+            }
             def update(arg: Symbol, body: => Unit) = {
-                MyDef(Symbol(name))(arg)(body)
+                MyDef1(Symbol(name))(arg)(body)
             }
         }
         //MyDef printhi ('x) ~~ MyDef.applyDynamic("printhi")('x)
@@ -129,24 +137,39 @@ class HellScript {
     }
     
     def exec(sym:Symbol) {
-        funcs(sym).call
+        val ints2 = ints
+        val strings2 = strings
+
+        funcs(sym)._2.call
+
+        ints = ints2
+        strings = strings2
     }
     
     def exec(sym:Symbol, arg:Any) {
 
+        val ints2 = ints
+        val strings2 = strings
+
+        val tup = funcs(sym)
+
         arg match {
-          case arg:Int => Println(arg)
-          case arg:String => Println(arg)
+          case arg:Int => ints += tup._1 -> arg // add func arg to list
+          case arg:String => strings += tup._1 -> arg // add func arg to list
         }
 
-        funcs(sym).call
+        tup._2.call
+
+        ints = ints2
+        strings = strings2
     }
 
     case class startswithsym(sym:Symbol){
         def apply() = exec(sym)
-        def apply(arg:Int) = exec(sym, arg)
-        def apply(arg:String) = exec(sym, arg)
-        def apply(arg:Symbol) = exec(sym, arg)
+        // def apply(arg:Int) = exec(sym, arg)
+        // def apply(arg:String) = exec(sym, arg)
+        // def apply(arg:Symbol) = exec(sym, arg)
+        def apply(arg:Any) = exec(sym, arg)
         def apply(arg:Any, arg2:Any) = exec(sym)
 
 
