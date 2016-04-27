@@ -1,10 +1,12 @@
 import scala.language.implicitConversions
+import scala.language.dynamics
 class HellScript {
     
     var ints:Map[Symbol,Int] = Map()
     var strings:Map[Symbol, String] = Map()
-    var condition:Boolean = false
     var funcs:Map[Symbol, Function] = Map()
+    var condition:Boolean = false
+    var vowels:Array[Char] = Array('a', 'e', 'i', 'o', 'u')
 
     case class Assign(v: Symbol){
         def :=(value:Int)= Set(v,value)
@@ -107,13 +109,42 @@ class HellScript {
 
     def Set(sym:Symbol, value:Any) {
         // To use when we're ready to make things hell-ish
-//        if (sym.name.charAt(0) != 't')        
-//          throw new Exception("You fool! Variables must begin with 't'");
+//        if (sym.name.charAt(0) != 't')
+//          throw new Exception("You fool! Variables must begin with 't'!")
+//        if (sym.name.length() > 5)        
+//          throw new Exception("You fool! The max length of anything is 5!")
+        
         
         value match {
-          case value:Int => ints += sym -> value
-          case value:String => strings += sym -> value
+          case value:Int => SetInt(sym, value)
+          case value:String => SetString(sym, value)
         }
+    }
+    
+    def SetInt(sym:Symbol, value:Int) {
+//        var stringValue = value.toString()
+//        
+//        if (stringValue.length() > 5)
+//          throw new Exception("You fool! The max length of anything is 5!")
+//        
+//        for (i <- 0 until stringValue.length()) {
+//            if (vowels.contains(stringValue.charAt(i)))
+//                throw new Exception("You fool! No vowels allowed!")
+//        }
+        
+        ints += sym -> value
+    }
+    
+    def SetString(sym:Symbol, value:String) {
+//        if (value.length() > 5)
+//          throw new Exception("You fool! The max length of anything is 5!");
+//        
+//        for (i <- 0 until value.length()) {
+//            if (vowels.contains(value.charAt(i)))
+//                throw new Exception("You fool! No vowels allowed!")
+//        }
+        
+        strings += sym -> value
     }
     
     def GetInt(sym:Symbol) : Int = {
