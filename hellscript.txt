@@ -1,5 +1,9 @@
-base 3 arithmetic
-variables have to start with t
+TODO:
 no addition
+variables have to start with t
 max length = 5
 no vowels
+misleading function names (ex: If("hello world") prints "hello world")
+if a variable is not defined when called upon, assign it a random value
+
+DONE:
