@@ -81,7 +81,7 @@ class HellScript {
         }
     }
     
-    def ElseWhile(pred:Boolean)(body: => Unit) {
+    def Elsewhile(pred:Boolean)(body: => Unit) {
         if (pred & !condition) {
             body
             condition = true
@@ -109,11 +109,7 @@ class HellScript {
     }
 
     object Def extends Dynamic {
-        def applyDynamic(name: String)(arg: Symbol) = {
-            //Def(Symbol(name))(arg)
-            //Symbol(name) === 'printhi
-            //println(s"Def $name($arg)")
-        }
+        def applyDynamic(name: String)(arg: Symbol) = { }
         def selectDynamic(name: String) = new {
             def update(body: => Unit) = {
                 MyDef0(Symbol(name))(body)
@@ -122,7 +118,6 @@ class HellScript {
                 MyDef1(Symbol(name))(arg)(body)
             }
         }
-        //MyDef printhi ('x) ~~ MyDef.applyDynamic("printhi")('x)
     }
 
     class Function(body: => Unit) {
@@ -235,7 +230,7 @@ class HellScript {
           }*/
     }
     implicit def funccall(name:Symbol) = startswithsym(name)
-    
+
     def randomString(length: Int) = {
         val r = new scala.util.Random
         val sb = new StringBuilder
