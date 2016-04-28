@@ -41,6 +41,12 @@ class HellScript {
             print(strings(sym))
         else if(ints contains sym)
             print(ints(sym))
+        else {
+            val r = scala.util.Random
+            ints += sym -> r.nextInt()
+            Print(sym)
+        } 
+
     }
     
     def Println(value:Int) {
@@ -56,6 +62,11 @@ class HellScript {
             println(strings(sym))
         else if(ints contains sym)
             println(ints(sym))
+        else {
+            val r = scala.util.Random
+            ints += sym -> r.nextInt()
+            Println(sym)
+        } 
     }
     
     def If(pred:Boolean)(body: => Unit) {
@@ -158,13 +169,23 @@ class HellScript {
     def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
 	          ints(sym)
-	      else 0
+	    else {
+            val r = scala.util.Random
+            ints += sym -> r.nextInt()
+            ints(sym)
+        }
     }
     
     def GetString(sym:Symbol) : String = {
         if(strings contains sym)
 	          strings(sym)
-	      else ""
+        else {
+            val r = scala.util.Random
+            val len = r.nextInt(15)
+            val str = randomString(len)
+            strings += sym -> str
+            strings(sym)
+        }
     }
     
     def exec(sym:Symbol) {
@@ -217,5 +238,14 @@ class HellScript {
           }*/
     }
     implicit def funccall(name:Symbol) = startswithsym(name)
+
+    def randomString(length: Int) = {
+        val r = new scala.util.Random
+        val sb = new StringBuilder
+        for (i <- 1 to length) {
+            sb.append(r.nextPrintableChar)
+        }
+        sb.toString
+    }
     
 }

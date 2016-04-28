@@ -3,15 +3,6 @@ object HelloWorld extends HellScript{
 
       Println("helloworld")
 
-      If(((1 or 0) and 5) or not(true)) {
-        'x := 20 * 5 + 5 * 12
-        't := 'x + 5
-        'y := "bees"
-        Println('x)
-        Println('t)
-        Println('y)
-      }
-
       //need some way to convert expressions into anon functions
       // need to clarify syntax for functions
 /*    Def ('printhi)('x) {
@@ -24,6 +15,12 @@ object HelloWorld extends HellScript{
     	Println('x)
     }*/
 
+    'z := "asdf"
+    'z := 'd
+    Println('x)
+    Println('x)
+    Println('x)
+
     Def printhi('x) = {
     	Println('x)
     }
@@ -32,9 +29,6 @@ object HelloWorld extends HellScript{
     	Println("not much")
     }
 
-    'whatsup()
-    'printhi()
-    'printhi(23)
     //this.printhi()
     //'printhi (59)
 
