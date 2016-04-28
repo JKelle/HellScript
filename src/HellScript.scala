@@ -69,7 +69,7 @@ class HellScript {
         } 
     }
     
-    def If(pred:Boolean)(body: => Unit) {
+    def While(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
             condition = true
@@ -78,7 +78,7 @@ class HellScript {
         }
     }
     
-    def ElseIf(pred:Boolean)(body: => Unit) {
+    def Elsewhile(pred:Boolean)(body: => Unit) {
         if (pred & !condition) {
             body
             condition = true
