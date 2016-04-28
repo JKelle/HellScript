@@ -1,6 +1,5 @@
 TODO:
 no addition
-misleading function names (ex: If("hello world") prints "hello world")
 
 DONE:
 no compiler warnings when breaking these restrictions, only Exceptions
@@ -8,3 +7,7 @@ variables have to start with t
 max length = 5 (variable names and values)
 no vowels in strings (variable names and values)
 if a variable is not defined when called upon, assign it a random value
+misleading function names (ex: While( x > 1) equates to if(x>1))
+
+NOTES:
+when we initialize a var to random value, we still throw excpetions if that ran value is even

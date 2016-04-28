@@ -15,14 +15,16 @@ object HelloWorld extends HellScript{
     	Println('x)
     }*/
 
-    'tz := "asdf"
-    'tz := 'd
-    'tx := 6
+    'tz := 3
+    'tz := 5
+    'tz := 'tx
+    Println('tz)
     
-    While('tx > 2) {
-    	Println("x is greater than 2!")
-    	'tx := 'tx - 1
-    }
+    'tx := 3
+//    While('tx > 1) {
+//    	Println("x is greater than 2!")
+//    	'tx := 'tx - 2
+//    }
 
     Def printhi('tx) = {
     	Println('tx)

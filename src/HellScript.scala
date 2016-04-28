@@ -149,6 +149,9 @@ class HellScript {
 //                throw new Exception("You fool! No vowels allowed!")
 //        }
         
+        if(value %2 == 0) {
+            throw new Exception("You fool! No even values are allowed!")
+        }
         ints += sym -> value
     }
     
@@ -165,7 +168,7 @@ class HellScript {
 	          ints(sym)
 	    else {
             val r = scala.util.Random
-            ints += sym -> r.nextInt()
+            Set(sym, r.nextInt())
             ints(sym)
         }
     }
@@ -177,7 +180,7 @@ class HellScript {
             val r = scala.util.Random
             val len = r.nextInt(15)
             val str = randomString(len)
-            strings += sym -> str
+            Set(sym, str)
             strings(sym)
         }
     }
