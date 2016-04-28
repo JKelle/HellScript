@@ -33,6 +33,10 @@ class HellScript {
     }
     
     def Print(str:String) {
+        for (i <- 0 until str.length())
+            if (vowels.contains(str.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in strings!")
+        
         print(str)
     }
 
@@ -45,8 +49,7 @@ class HellScript {
             val r = scala.util.Random
             ints += sym -> r.nextInt()
             Print(sym)
-        } 
-
+        }
     }
     
     def Println(value:Int) {
@@ -66,7 +69,7 @@ class HellScript {
             val r = scala.util.Random
             ints += sym -> r.nextInt()
             Println(sym)
-        } 
+        }
     }
     
     def While(pred:Boolean)(body: => Unit) {
@@ -78,7 +81,7 @@ class HellScript {
         }
     }
     
-    def Elsewhile(pred:Boolean)(body: => Unit) {
+    def ElseWhile(pred:Boolean)(body: => Unit) {
         if (pred & !condition) {
             body
             condition = true
@@ -101,11 +104,16 @@ class HellScript {
 
     //Define a function with one parameter
     def MyDef1(funcname: Symbol)(arg1:Symbol)(body: => Any) = {
+        //val body = new Function(Println("HI"))
         funcs += funcname -> (arg1, new Function(body))
     }
 
     object Def extends Dynamic {
-        def applyDynamic(name: String)(arg: Symbol) = { }
+        def applyDynamic(name: String)(arg: Symbol) = {
+            //Def(Symbol(name))(arg)
+            //Symbol(name) === 'printhi
+            //println(s"Def $name($arg)")
+        }
         def selectDynamic(name: String) = new {
             def update(body: => Unit) = {
                 MyDef0(Symbol(name))(body)
@@ -114,6 +122,7 @@ class HellScript {
                 MyDef1(Symbol(name))(arg)(body)
             }
         }
+        //MyDef printhi ('x) ~~ MyDef.applyDynamic("printhi")('x)
     }
 
     class Function(body: => Unit) {
@@ -121,16 +130,16 @@ class HellScript {
     } 
 
     def Set(sym:Symbol, value:Any) {
-        // To use when we're ready to make things hell-ish
-        if (sym.name.charAt(0) != 't')
-          throw new Exception("You fool! Variables must begin with 't'!")
-        if (sym.name.length() > 5)        
-          throw new Exception("You fool! The max length of anything is 5!")
+        var symName = sym.name
         
-        for (i <- 0 until sym.name.length()) {
-            if (vowels.contains(sym.name.charAt(i)))
-                throw new Exception("You fool! No vowels allowed!")
-        }
+        //Restrictions
+        if (symName.length() > 5)        
+          throw new Exception("You fool! The max length of variable names is 5!")
+        for (i <- 0 until symName.length())
+            if (vowels.contains(symName.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in variable names!")
+        if (symName.charAt(0) != 't')
+          throw new Exception("You fool! Variables must begin with 't'!")
         
         value match {
           case value:Int => SetInt(sym, value)
@@ -139,16 +148,6 @@ class HellScript {
     }
     
     def SetInt(sym:Symbol, value:Int) {
-//        var stringValue = value.toString()
-//        
-//        if (stringValue.length() > 5)
-//          throw new Exception("You fool! The max length of anything is 5!")
-//        
-//        for (i <- 0 until stringValue.length()) {
-//            if (vowels.contains(stringValue.charAt(i)))
-//                throw new Exception("You fool! No vowels allowed!")
-//        }
-        
         if(value %2 == 0) {
             throw new Exception("You fool! No even values are allowed!")
         }
@@ -156,9 +155,10 @@ class HellScript {
     }
     
     def SetString(sym:Symbol, value:String) {
-        if (value.length() > 5)
-          throw new Exception("You fool! The max length of anything is 5!");
-        
+        //Restriction
+        for (i <- 0 until value.length())
+            if (vowels.contains(value.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in strings!")
         
         strings += sym -> value
     }
@@ -166,7 +166,7 @@ class HellScript {
     def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
 	          ints(sym)
-	    else {
+	      else {
             val r = scala.util.Random
             Set(sym, r.nextInt())
             ints(sym)
@@ -176,7 +176,7 @@ class HellScript {
     def GetString(sym:Symbol) : String = {
         if(strings contains sym)
 	          strings(sym)
-        else {
+	      else {
             val r = scala.util.Random
             val len = r.nextInt(15)
             val str = randomString(len)
@@ -235,7 +235,7 @@ class HellScript {
           }*/
     }
     implicit def funccall(name:Symbol) = startswithsym(name)
-
+    
     def randomString(length: Int) = {
         val r = new scala.util.Random
         val sb = new StringBuilder
