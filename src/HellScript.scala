@@ -101,16 +101,11 @@ class HellScript {
 
     //Define a function with one parameter
     def MyDef1(funcname: Symbol)(arg1:Symbol)(body: => Any) = {
-        //val body = new Function(Println("HI"))
         funcs += funcname -> (arg1, new Function(body))
     }
 
     object Def extends Dynamic {
-        def applyDynamic(name: String)(arg: Symbol) = {
-            //Def(Symbol(name))(arg)
-            //Symbol(name) === 'printhi
-            //println(s"Def $name($arg)")
-        }
+        def applyDynamic(name: String)(arg: Symbol) = { }
         def selectDynamic(name: String) = new {
             def update(body: => Unit) = {
                 MyDef0(Symbol(name))(body)
@@ -119,7 +114,6 @@ class HellScript {
                 MyDef1(Symbol(name))(arg)(body)
             }
         }
-        //MyDef printhi ('x) ~~ MyDef.applyDynamic("printhi")('x)
     }
 
     class Function(body: => Unit) {
@@ -128,11 +122,15 @@ class HellScript {
 
     def Set(sym:Symbol, value:Any) {
         // To use when we're ready to make things hell-ish
-//        if (sym.name.charAt(0) != 't')
-//          throw new Exception("You fool! Variables must begin with 't'!")
-//        if (sym.name.length() > 5)        
-//          throw new Exception("You fool! The max length of anything is 5!")
+        if (sym.name.charAt(0) != 't')
+          throw new Exception("You fool! Variables must begin with 't'!")
+        if (sym.name.length() > 5)        
+          throw new Exception("You fool! The max length of anything is 5!")
         
+        for (i <- 0 until sym.name.length()) {
+            if (vowels.contains(sym.name.charAt(i)))
+                throw new Exception("You fool! No vowels allowed!")
+        }
         
         value match {
           case value:Int => SetInt(sym, value)
@@ -155,13 +153,9 @@ class HellScript {
     }
     
     def SetString(sym:Symbol, value:String) {
-//        if (value.length() > 5)
-//          throw new Exception("You fool! The max length of anything is 5!");
-//        
-//        for (i <- 0 until value.length()) {
-//            if (vowels.contains(value.charAt(i)))
-//                throw new Exception("You fool! No vowels allowed!")
-//        }
+        if (value.length() > 5)
+          throw new Exception("You fool! The max length of anything is 5!");
+        
         
         strings += sym -> value
     }
