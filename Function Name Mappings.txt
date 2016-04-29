@@ -1,0 +1,7 @@
+This file defines what the current names of the functions in HellScript.scala are actually implemented to do
+
+Println = print
+Print = println
+Else = if
+If = else if
+Elseif = else

@@ -1,13 +1,13 @@
 TODO:
 no addition
-misleading function names (ex: While( x > 1) equates to if(x>1)) - we should do more than just this
 
 DONE:
 no compiler warnings when breaking these restrictions, only Exceptions
 variables have to start with t
 max length = 5 for variable names
 no vowels in strings (including literals) or variable names
-if a variable is not defined when called upon, assign it a random value
+if a variable is not defined when called upon, assign it a random value  - we should showcase this in one of the demos
+misleading function names
 
 NOTES:
-when we initialize a var to random value, we still throw excpetions if that ran value is even
+when we initialize a var to random value, we still throw exceptions if that ran value is even
