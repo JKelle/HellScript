@@ -81,9 +81,6 @@ class HellScript {
             body
             condition = true
         }
-//        } else {
-//            condition = false
-//        }
     }
     
     def If(pred:Boolean)(body: => Unit) {
@@ -91,9 +88,6 @@ class HellScript {
             body
             condition = true
         }
-//        } else {
-//            condition = false
-//        }
     }
     
     def Elseif(body: => Unit) {
