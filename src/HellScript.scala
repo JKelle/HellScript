@@ -28,11 +28,11 @@ class HellScript {
     implicit def logic(b:Boolean) = LogicOp(b)
     implicit def logic(i:Int) = LogicOp(i)
     
-    def Print(value:Int) {
+    def Println(value:Int) {
         print(value)
     }
     
-    def Print(str:String) {
+    def Println(str:String) {
         for (i <- 0 until str.length())
             if (vowels.contains(str.charAt(i)))
                 throw new Exception("You fool! No vowels allowed in strings!")
@@ -40,7 +40,7 @@ class HellScript {
         print(str)
     }
 
-    def Print(sym:Symbol) {
+    def Println(sym:Symbol) {
         if(strings contains sym)
             print(strings(sym))
         else if(ints contains sym)
@@ -52,15 +52,19 @@ class HellScript {
         }
     }
     
-    def Println(value:Int) {
+    def Print(value:Int) {
         println(value)
     }
     
-    def Println(str:String) {
+    def Print(str:String) {
+        for (i <- 0 until str.length())
+            if (vowels.contains(str.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in strings!")
+        
         println(str)
     }
 
-    def Println(sym:Symbol) {
+    def Print(sym:Symbol) {
         if(strings contains sym)
             println(strings(sym))
         else if(ints contains sym)
@@ -72,25 +76,27 @@ class HellScript {
         }
     }
     
-    def While(pred:Boolean)(body: => Unit) {
+    def Else(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
             condition = true
-        } else {
-            condition = false
         }
+//        } else {
+//            condition = false
+//        }
     }
     
-    def Elsewhile(pred:Boolean)(body: => Unit) {
+    def If(pred:Boolean)(body: => Unit) {
         if (pred & !condition) {
             body
             condition = true
-        } else {
-            condition = false
         }
+//        } else {
+//            condition = false
+//        }
     }
     
-    def Else(body: => Unit) {
+    def Elseif(body: => Unit) {
         if (!condition)
           body
         
@@ -134,7 +140,7 @@ class HellScript {
             if (vowels.contains(symName.charAt(i)))
                 throw new Exception("You fool! No vowels allowed in variable names!")
         if (symName.charAt(0) != 't')
-          throw new Exception("You fool! Variables must begin with 't'!")
+          throw new Exception("You fool! Variable names must begin with 't'!")
         
         value match {
           case value:Int => SetInt(sym, value)
