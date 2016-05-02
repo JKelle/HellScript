@@ -28,15 +28,15 @@ class HellScript {
     implicit def logic(b:Boolean) = LogicOp(b)
     implicit def logic(i:Int) = LogicOp(i)
 
-    def Print(value:Int) {
-        print(value)
-    }
 
-    def Print(str:String) {
+    def Println(str:String) {
+        for (i <- 0 until str.length())
+            if (vowels.contains(str.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in strings!")
         print(str)
     }
 
-    def Print(sym:Symbol) {
+    def Println(sym:Symbol) {
         if(strings contains sym)
             print(strings(sym))
         else if(ints contains sym)
@@ -46,18 +46,24 @@ class HellScript {
             ints += sym -> r.nextInt()
             Print(sym)
         }
-
     }
 
     def Println(value:Int) {
+        print(value)
+    }
+
+    def Print(value:Int) {
         println(value)
     }
 
-    def Println(str:String) {
+    def Print(str:String) {
+        for (i <- 0 until str.length())
+            if (vowels.contains(str.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in strings!")
         println(str)
     }
 
-    def Println(sym:Symbol) {
+    def Print(sym:Symbol) {
         if(strings contains sym)
             println(strings(sym))
         else if(ints contains sym)
@@ -69,25 +75,21 @@ class HellScript {
         }
     }
 
-    def While(pred:Boolean)(body: => Unit) {
+    def Else(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
             condition = true
-        } else {
-            condition = false
         }
     }
 
-    def Elsewhile(pred:Boolean)(body: => Unit) {
+    def If(pred:Boolean)(body: => Unit) {
         if (pred & !condition) {
             body
             condition = true
-        } else {
-            condition = false
         }
     }
 
-    def Else(body: => Unit) {
+    def Elseif(body: => Unit) {
         if (!condition)
           body
 
@@ -101,6 +103,7 @@ class HellScript {
 
     //Define a function with one parameter
     def MyDef1(funcname: Symbol)(arg1:Symbol)(body: => Any) = {
+        //val body = new Function(Println("HI"))
         funcs += funcname -> (arg1, new Function(body))
     }
 
@@ -132,6 +135,17 @@ class HellScript {
                 throw new Exception("You fool! No vowels allowed!")
         }
 
+        var symName = sym.name
+
+        //Restrictions
+        if (symName.length() > 5)
+          throw new Exception("You fool! The max length of variable names is 5!")
+        for (i <- 0 until symName.length())
+            if (vowels.contains(symName.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in variable names!")
+        if (symName.charAt(0) != 't')
+          throw new Exception("You fool! Variable names must begin with 't'!")
+
         value match {
           case value:Int => SetInt(sym, value)
           case value:String => SetString(sym, value)
@@ -139,15 +153,15 @@ class HellScript {
     }
 
     def SetInt(sym:Symbol, value:Int) {
-//        var stringValue = value.toString()
-//
-//        if (stringValue.length() > 5)
-//          throw new Exception("You fool! The max length of anything is 5!")
-//
-//        for (i <- 0 until stringValue.length()) {
-//            if (vowels.contains(stringValue.charAt(i)))
-//                throw new Exception("You fool! No vowels allowed!")
-//        }
+        var stringValue = value.toString()
+
+        if (stringValue.length() > 5)
+          throw new Exception("You fool! The max length of anything is 5!")
+
+        for (i <- 0 until stringValue.length()) {
+            if (vowels.contains(stringValue.charAt(i)))
+                throw new Exception("You fool! No vowels allowed!")
+        }
 
         if(value %2 == 0) {
             throw new Exception("You fool! No even values are allowed!")
@@ -160,13 +174,18 @@ class HellScript {
           throw new Exception("You fool! The max length of anything is 5!");
 
 
+        //Restriction
+        for (i <- 0 until value.length())
+            if (vowels.contains(value.charAt(i)))
+                throw new Exception("You fool! No vowels allowed in strings!")
+
         strings += sym -> value
     }
 
     def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
 	          ints(sym)
-	    else {
+	      else {
             val r = scala.util.Random
             Set(sym, r.nextInt())
             ints(sym)
@@ -176,7 +195,7 @@ class HellScript {
     def GetString(sym:Symbol) : String = {
         if(strings contains sym)
 	          strings(sym)
-        else {
+	      else {
             val r = scala.util.Random
             val len = r.nextInt(15)
             val str = randomString(len)
