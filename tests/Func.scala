@@ -9,6 +9,6 @@ object Func extends HellScript {
         }
         
         'noarg()
-        'onearg(1)
+        'onearg(2)
     }
 }
