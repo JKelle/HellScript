@@ -222,8 +222,8 @@ class HellScript {
         val tup = funcs(sym)
 
         arg match {
-          case arg:Int => ints += tup._1 -> arg // add func arg to list
-          case arg:String => strings += tup._1 -> arg // add func arg to list
+          case arg:Int => Set(tup._1, arg) // add func arg to list
+          case arg:String => Set(tup._1, arg) // add func arg to list
         }
 
         tup._2.call
