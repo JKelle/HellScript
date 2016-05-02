@@ -1,7 +1,7 @@
 object Func extends HellScript {
     def main(args: Array[String]): Unit = {
         Def noarg() = {
-            Print("No args!")
+            Print("N0 @rgs!")
         }
 
         Def onearg('tx) = {
@@ -9,6 +9,6 @@ object Func extends HellScript {
         }
 
         'noarg()
-        'onearg(8)
+        'onearg(2)
     }
 }

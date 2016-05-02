@@ -1,0 +1,33 @@
+// Start here
+Def noarg() = {
+    Print("N0 @rgs!")
+}
+
+Def onearg('tx) = {
+    Print('ty)
+}
+
+'noarg()
+'onearg(2)
+
+Def noarg() = {
+    Print("N0 @rgs!")
+}
+
+Def onearg('tx) = {
+    Print('ty)
+}
+
+'noarg()
+'onearg(2)
+
+Def noarg() = {
+    Print("N0 @rgs!")
+}
+
+Def onearg('tx) = {
+    Print('tx)
+}
+
+'noarg()
+'onearg(1)
