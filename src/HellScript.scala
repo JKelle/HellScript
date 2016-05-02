@@ -43,7 +43,7 @@ class HellScript {
             print(ints(sym))
         else {
             val r = scala.util.Random
-            ints += sym -> r.nextInt()
+            Set(sym, r.nextInt())
             Print(sym)
         }
     }
@@ -70,8 +70,8 @@ class HellScript {
             println(ints(sym))
         else {
             val r = scala.util.Random
-            ints += sym -> r.nextInt()
-            Println(sym)
+            Set(sym, r.nextInt())
+            Print(sym)
         }
     }
 
@@ -135,17 +135,6 @@ class HellScript {
                 throw new Exception("You fool! No vowels allowed!")
         }
 
-        var symName = sym.name
-
-        //Restrictions
-        if (symName.length() > 5)
-          throw new Exception("You fool! The max length of variable names is 5!")
-        for (i <- 0 until symName.length())
-            if (vowels.contains(symName.charAt(i)))
-                throw new Exception("You fool! No vowels allowed in variable names!")
-        if (symName.charAt(0) != 't')
-          throw new Exception("You fool! Variable names must begin with 't'!")
-
         value match {
           case value:Int => SetInt(sym, value)
           case value:String => SetString(sym, value)
@@ -153,16 +142,6 @@ class HellScript {
     }
 
     def SetInt(sym:Symbol, value:Int) {
-        var stringValue = value.toString()
-
-        if (stringValue.length() > 5)
-          throw new Exception("You fool! The max length of anything is 5!")
-
-        for (i <- 0 until stringValue.length()) {
-            if (vowels.contains(stringValue.charAt(i)))
-                throw new Exception("You fool! No vowels allowed!")
-        }
-
         if(value %2 == 0) {
             throw new Exception("You fool! No even values are allowed!")
         }
