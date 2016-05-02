@@ -1,24 +1,24 @@
 // Start here
-'x := 0
-'y := 1
+'tx := 0
+'ty := 1
 
-If('x < 'y) {
+If('tx < 'ty) {
     Print("x")
 }
-Elseif('x > 'y) {
+Elseif('tx > 'ty) {
     Print("y")
 }
 Else {
     Print("z")
 }
 
-'x := 0
-'y := 1
+'tx := 0
+'ty := 1
 
-Else('x < 'y) {
+Else('tx < 'ty) {
     Print("x")
 }
-If('x > 'y) {
+If('tx > 'ty) {
     Print("y")
 }
 Elseif {
