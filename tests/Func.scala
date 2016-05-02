@@ -1,16 +1,14 @@
 object Func extends HellScript {
     def main(args: Array[String]): Unit = {
         Def noarg() = {
-            Print("No args!")
+            Print("N0 @rgs!")
         }
-
-        Def onearg('thishasonearg) = {
-            Print('thishasonarg)
+        
+        Def onearg('tx) = {
+            Print('ty)
         }
-
-        noarg()
-        'tx := 5
-        'tx := 'tx + 1
-        onearg('tx)
+        
+        'noarg()
+        'onearg(1)
     }
 }
