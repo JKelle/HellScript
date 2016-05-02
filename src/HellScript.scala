@@ -1,7 +1,7 @@
 import scala.language.implicitConversions
 import scala.language.dynamics
 class HellScript {
-    
+
     var ints:Map[Symbol,Int] = Map()
     var strings:Map[Symbol, String] = Map()
     var condition:Boolean = false
@@ -16,22 +16,22 @@ class HellScript {
         def or(rhs:Boolean)= lhs || rhs
         def and(rhs:Boolean)= lhs && rhs
     }
-  
+
     def not(value: Boolean): Boolean = {
       !value
     }
-  
+
     implicit def inttobool(i: Int):Boolean = if(i==0) false else true
     //implicit def vartostr(s:Symbol) = GetString(s)
     implicit def vartoint(s:Symbol) = GetInt(s)
     implicit def varname(sym: Symbol) = Assign(sym)
     implicit def logic(b:Boolean) = LogicOp(b)
     implicit def logic(i:Int) = LogicOp(i)
-    
+
     def Print(value:Int) {
         print(value)
     }
-    
+
     def Print(str:String) {
         print(str)
     }
@@ -45,14 +45,14 @@ class HellScript {
             val r = scala.util.Random
             ints += sym -> r.nextInt()
             Print(sym)
-        } 
+        }
 
     }
-    
+
     def Println(value:Int) {
         println(value)
     }
-    
+
     def Println(str:String) {
         println(str)
     }
@@ -66,9 +66,9 @@ class HellScript {
             val r = scala.util.Random
             ints += sym -> r.nextInt()
             Println(sym)
-        } 
+        }
     }
-    
+
     def While(pred:Boolean)(body: => Unit) {
         if (pred) {
             body
@@ -77,7 +77,7 @@ class HellScript {
             condition = false
         }
     }
-    
+
     def Elsewhile(pred:Boolean)(body: => Unit) {
         if (pred & !condition) {
             body
@@ -86,11 +86,11 @@ class HellScript {
             condition = false
         }
     }
-    
+
     def Else(body: => Unit) {
         if (!condition)
           body
-        
+
         condition = false
     }
 
@@ -118,51 +118,51 @@ class HellScript {
 
     class Function(body: => Unit) {
         def call = body
-    } 
+    }
 
     def Set(sym:Symbol, value:Any) {
         // To use when we're ready to make things hell-ish
         if (sym.name.charAt(0) != 't')
           throw new Exception("You fool! Variables must begin with 't'!")
-        if (sym.name.length() > 5)        
+        if (sym.name.length() > 5)
           throw new Exception("You fool! The max length of anything is 5!")
-        
+
         for (i <- 0 until sym.name.length()) {
             if (vowels.contains(sym.name.charAt(i)))
                 throw new Exception("You fool! No vowels allowed!")
         }
-        
+
         value match {
           case value:Int => SetInt(sym, value)
           case value:String => SetString(sym, value)
         }
     }
-    
+
     def SetInt(sym:Symbol, value:Int) {
 //        var stringValue = value.toString()
-//        
+//
 //        if (stringValue.length() > 5)
 //          throw new Exception("You fool! The max length of anything is 5!")
-//        
+//
 //        for (i <- 0 until stringValue.length()) {
 //            if (vowels.contains(stringValue.charAt(i)))
 //                throw new Exception("You fool! No vowels allowed!")
 //        }
-        
+
         if(value %2 == 0) {
             throw new Exception("You fool! No even values are allowed!")
         }
         ints += sym -> value
     }
-    
+
     def SetString(sym:Symbol, value:String) {
         if (value.length() > 5)
           throw new Exception("You fool! The max length of anything is 5!");
-        
-        
+
+
         strings += sym -> value
     }
-    
+
     def GetInt(sym:Symbol) : Int = {
         if(ints contains sym)
 	          ints(sym)
@@ -172,7 +172,7 @@ class HellScript {
             ints(sym)
         }
     }
-    
+
     def GetString(sym:Symbol) : String = {
         if(strings contains sym)
 	          strings(sym)
@@ -184,7 +184,7 @@ class HellScript {
             strings(sym)
         }
     }
-    
+
     def exec(sym:Symbol) {
         val ints2 = ints
         val strings2 = strings
@@ -194,7 +194,7 @@ class HellScript {
         ints = ints2
         strings = strings2
     }
-    
+
     def exec(sym:Symbol, arg:Any) {
 
         val ints2 = ints
@@ -223,7 +223,7 @@ class HellScript {
 
 
         /*if( funcs contains sym) {
-           
+
             //var temp = ints;
             //ints += //get the param
             funcs(sym)
@@ -244,5 +244,5 @@ class HellScript {
         }
         sb.toString
     }
-    
+
 }
