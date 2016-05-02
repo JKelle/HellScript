@@ -19,7 +19,7 @@ Def onearg('tx) = {
 }
 
 'noarg()
-'onearg(2)
+'onearg(1)
 
 Def noarg() = {
     Print("N0 @rgs!")
