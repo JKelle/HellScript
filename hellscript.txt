@@ -1,12 +1,11 @@
 TODO:
-no addition
 
 DONE:
 no compiler warnings when breaking these restrictions, only Exceptions
 variables have to start with t
 max length = 5 for variable names
 no vowels in strings (including literals) or variable names
-if a variable is not defined when called upon, assign it a random value  - we should showcase this in one of the demos
+if a variable is not defined when called upon, assign it a random value
 misleading function names
 
 NOTES:
