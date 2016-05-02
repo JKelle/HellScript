@@ -4,10 +4,10 @@ Print('variableX)
 'variableX := 'variableX + 2
 Print('variableX)
 
-'x := 1
-Print('x)
-'x := 'x + 1
-Print('x)
+'tvariableX := 1
+Print('tvariableX)
+'tvariableX := 'tvariableX + 2
+Print('tvariableX)
 
 // End here
 'tx := 1
