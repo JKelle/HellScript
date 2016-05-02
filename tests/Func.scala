@@ -4,13 +4,11 @@ object Func extends HellScript {
             Print("No args!")
         }
 
-        Def onearg('thishasonearg) = {
-            Print('thishasonarg)
+        Def onearg('tx) = {
+            Print('ty)
         }
 
-        noarg()
-        'tx := 5
-        'tx := 'tx + 1
-        onearg('tx)
+        'noarg()
+        'onearg(8)
     }
 }
